@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: #141414;
+      color: #fff;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      /* largura de celular centralizada */
+      max-width: 430px;
+      margin: 0 auto;
+      overflow-x: hidden;
+      /* garante que preenche a tela toda sem espaço em branco */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 16px 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.80) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      color: #E50914;
+      font-size: 1.8rem;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      font-size: 0.68rem;
+      color: #e5e5e5;
+      font-weight: 400;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ícones SVG brancos */
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* foto de perfil — bolinha */
+    .profile-pic {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #E50914;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* placeholder inicial quando não tem foto de perfil */
+    .profile-initials {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      user-select: none;
+    }
+
+    /* ══════════════════════════════════
+       HERO — foto grande do casal
+    ══════════════════════════════════ */
+    .hero {
+      position: relative;
+      width: 100%;
+      /* ~60% da viewport height — bem maior */
+      height: 62vh;
+      min-height: 320px;
+      max-height: 480px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-placeholder {
+      position: absolute;
+      inset: 0;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #444;
+      font-size: 0.8rem;
+    }
+    .hero-placeholder .ph-icon { font-size: 2.5rem; }
+
+    /* gradiente: escurece bordas para os textos ficarem legíveis */
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  rgba(0,0,0,0.55) 0%, transparent 65%),
+        linear-gradient(to top,    rgba(20,20,20,1)  0%, transparent 45%),
+        linear-gradient(to bottom, rgba(0,0,0,0.30)  0%, transparent 25%);
+    }
+
+    /* textos e botões sobrepostos */
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0 16px 16px;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1.05;
+      text-shadow: 1px 2px 8px rgba(0,0,0,0.85);
+      margin-bottom: 6px;
+    }
+
+    .hero-desc {
+      font-size: 0.67rem;
+      color: #d4d4d4;
+      line-height: 1.5;
+      max-width: 230px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+      margin-bottom: 12px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-play {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 7px 18px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      transition: background 0.15s;
+    }
+    .btn-play:hover { background: rgba(255,255,255,0.85); }
+
+    .btn-more {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(109,109,110,0.65);
+      color: #fff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-more:hover { background: rgba(109,109,110,0.45); }
+
+    /* ══════════════════════════════════
+       LABEL "TOP 4"
+    ══════════════════════════════════ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px 8px;
+      flex-shrink: 0;
+    }
+
+    .top-badge {
+      background: #E50914;
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #e5e5e5;
+    }
+
+    /* ══════════════════════════════════
+       GRID 4 FOTOS — 2 × 2
+    ══════════════════════════════════ */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      padding: 0 3px 3px;
+      /* ocupa o restante do espaço disponível */
+      flex: 1;
+    }
+
+    .grid-item {
+      position: relative;
+      /* aspect-ratio livre — preenche o espaço */
+      overflow: hidden;
+      background: #242424;
+      cursor: pointer;
+      /* altura mínima para não achatar */
+      min-height: 110px;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s;
+    }
+    .grid-item:hover img { transform: scale(1.05); }
+
+    /* placeholder quando não tem foto */
+    .grid-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      color: #444;
+      font-size: 0.62rem;
+      text-align: center;
+      padding: 8px;
+      pointer-events: none;
+    }
+    .grid-ph .ph-icon { font-size: 1.6rem; }
+
+    /* número grande no canto inferior esquerdo */
+    .grid-num {
+      position: absolute;
+      bottom: 4px;
+      left: 6px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      -webkit-text-stroke: 2.5px #000;
+      opacity: 0.95;
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════
+       MODAL VÍDEO
+    ══════════════════════════════════ */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .overlay.on { display: flex; }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+      background: #000;
+    }
+
+    .v-close {
+      position: absolute;
+      top: -38px; right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .no-video {
+      background: #1f1f1f;
+      border-radius: 6px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #555;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .no-video code {
+      background: #2a2a2a;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      color: #e50914;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <span class="nav-logo">N</span>
+
+  <div class="nav-links">
+    <span>Séries</span>
+    <span>Filmes</span>
+    <span>Documentários</span>
+  </div>
+
+  <div class="nav-right">
+    <!-- Ícone lupa — branco -->
+    <svg class="nav-icon" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"/>
+      <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+    </svg>
+
+    <!-- Ícone sino — branco -->
+    <svg class="nav-icon" viewBox="0 0 24 24">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+
+    <!-- Foto de perfil — bolinha quadrada -->
+    <!--
+      ════════════════════════════════════════════════════
+      FOTO DE PERFIL: coloque a URL da foto dentro do src
+      Ex: src="https://xxxx.supabase.co/.../perfil.jpg"
+      Se deixar vazio, aparece as iniciais "EU"
+      ════════════════════════════════════════════════════
+    -->
+    <div class="profile-pic" id="profilePic">
+      <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-perfil.jpg"
+           id="profileImg"
+           alt="perfil"
+           onerror="this.style.display='none'; document.getElementById('profileFallback').style.display='block'"/>
+      <span class="profile-initials" id="profileFallback">EU</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <!--
+    ════════════════════════════════════════════════════
+    FOTO PRINCIPAL DO CASAL:
+    Substitua o src="" pela URL da foto do Supabase
+    Ex: src="https://xxxx.supabase.co/.../casal.jpg"
+    ════════════════════════════════════════════════════
+  -->
+  <img class="hero-img" id="heroImg"
+       src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%201.png"
+       alt="Foto do casal"
+       onerror="this.style.display='none'"/>
+
+  <div class="hero-placeholder" id="heroPh">
+    <span class="ph-icon">📷</span>
+    <span>Coloque a URL da sua foto aqui</span>
+    <span style="font-size:0.65rem; color:#333;">(heroImg src="")</span>
+  </div>
+
+  <div class="hero-gradient"></div>
+
+  <div class="hero-content">
+    <!--
+      ════════════════════
+      EDITE: nome dos dois
+      ════════════════════
+    -->
+    <div class="hero-title">Leandro &amp; Marina</div>
+    <!--
+      ══════════════════
+      EDITE: descrição
+      ══════════════════
+    -->
+    <div class="hero-desc">
+      Duas pessoas, um mesmo escritório e uma história que ningúem esperava. Entre risadas, desafios e descobertas, Leandro e Marina decidem viver sua própia aventura de amor.
+    </div>
+    <div class="hero-buttons">
+      <button class="btn-play" onclick="openVideo(0)">▶ Assistir</button>
+      <button class="btn-more">ℹ Mais informações</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LABEL ══ -->
+<div class="section-header">
+  <span class="top-badge">TOP</span>
+  <span class="section-title">Brasil: Top 4 de hoje</span>
+</div>
+
+<!-- ══ GRID 4 FOTOS ══ -->
+<div class="grid">
+
+  <!--
+    ════════════════════════════════════════════════════
+    FOTOS DA GRADE: substitua cada src="" pela URL
+    do Supabase. Clicando em cada foto abre o vídeo.
+    ════════════════════════════════════════════════════
+  -->
+
+  <div class="grid-item" onclick="openVideo(1)">
+    <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%202.png" alt="foto 1" onerror="this.style.display='none'"/>
+    <div class="grid-ph"><span class="ph-icon">📷</span>Foto 1</div>
+    <div class="grid-num">1</div>
+  </div>
+
+  <div class="grid-item" onclick="openVideo(2)">
+    <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%203.png" alt="foto 2" onerror="this.style.display='none'"/>
+    <div class="grid-ph"><span class="ph-icon">📷</span>Foto 2</div>
+    <div class="grid-num">2</div>
+  </div>
+
+  <div class="grid-item" onclick="openVideo(3)">
+    <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%204.png" alt="foto 3" onerror="this.style.display='none'"/>
+    <div class="grid-ph"><span class="ph-icon">📷</span>Foto 3</div>
+    <div class="grid-num">3</div>
+  </div>
+
+  <div class="grid-item" onclick="openVideo(4)">
+    <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%205.png" alt="foto 4" onerror="this.style.display='none'"/>
+    <div class="grid-ph"><span class="ph-icon">📷</span>Foto 4</div>
+    <div class="grid-num">4</div>
+  </div>
+
+</div><!-- /grid -->
+
+<!-- ══ MODAL VÍDEO ══ -->
+<div class="overlay" id="overlay" onclick="closeVideo(event)">
+  <div class="video-wrap">
+    <button class="v-close" onclick="closeVideo()">✕</button>
+    <video id="vid" controls playsinline></video>
+    <div class="no-video" id="noVid" style="display:none;">
+      🎬 Vídeo ainda não configurado.<br/>
+      Coloque a URL no array <code>videos[]</code> no código.
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  ════════════════════════════════════════════════════
+  URLS DOS VÍDEOS — edite aqui!
+
+  Cada posição corresponde a:
+    videos[0] → botão "Assistir" do hero (foto principal)
+    videos[1] → clique na Foto 1
+    videos[2] → clique na Foto 2
+    videos[3] → clique na Foto 3
+    videos[4] → clique na Foto 4
+
+  Cole a URL pública do Supabase entre as aspas.
+  Exemplo:
+    "https://abcd1234.supabase.co/storage/v1/object/public/midia/video1.mp4"
+  ════════════════════════════════════════════════════
+*/
+const videos = [
+  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%201.mp4",   // 0 — hero (botão Assistir)
+  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%202.mp4",   // 1 — Foto 1
+  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%203.mp4",   // 2 — Foto 2
+  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%204.mp4",   // 3 — Foto 3
+  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%205.mp4",   // 4 — Foto 4
+];
+
+function openVideo(i) {
+  const url = videos[i];
+  const vid  = document.getElementById('vid');
+  const noVid = document.getElementById('noVid');
+  if (url) {
+    vid.src = url;
+    vid.style.display = 'block';
+    noVid.style.display = 'none';
+    vid.play().catch(() => {});
+  } else {
+    vid.style.display = 'none';
+    noVid.style.display = 'block';
+  }
+  document.getElementById('overlay').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideo(e) {
+  if (e && e.target !== document.getElementById('overlay')) return;
+  const vid = document.getElementById('vid');
+  vid.pause(); vid.src = '';
+  document.getElementById('overlay').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeVideo();
+});
+
+// Esconde placeholder hero quando a imagem carrega
+document.getElementById('heroImg').onload = function() {
+  document.getElementById('heroPh').style.display = 'none';
+};
+</script>
+</body>
+</html>
