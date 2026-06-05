@@ -7,335 +7,226 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
       background: #141414;
       color: #fff;
       font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-      /* largura de celular centralizada */
       max-width: 430px;
       margin: 0 auto;
       overflow-x: hidden;
-      /* garante que preenche a tela toda sem espaço em branco */
       display: flex;
       flex-direction: column;
     }
 
-    /* ══════════════════════════════════
-       NAV
-    ══════════════════════════════════ */
+    /* ── NAV ── */
     nav {
-      position: absolute;
-      top: 0; left: 50%;
+      position: absolute; top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
+      width: 100%; max-width: 430px;
       z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 16px 16px 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.80) 0%, transparent 100%);
     }
-
-    .nav-logo {
-      color: #E50914;
-      font-size: 1.8rem;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -1px;
-      line-height: 1;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 12px;
-      font-size: 0.68rem;
-      color: #e5e5e5;
-      font-weight: 400;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    /* ícones SVG brancos */
+    .nav-links { display: flex; gap: 12px; font-size: 0.68rem; color: #e5e5e5; }
+    .nav-right  { display: flex; align-items: center; gap: 12px; }
     .nav-icon {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: #ffffff;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      display: block;
-      flex-shrink: 0;
+      width: 18px; height: 18px; fill: none; stroke: #fff;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      display: block; flex-shrink: 0;
     }
-
-    /* foto de perfil — bolinha */
     .profile-pic {
-      width: 48px;
-      height: 48px;
-      border-radius: 4px;
-      overflow: hidden;
-      background: #E50914;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 4px; overflow: hidden;
+      background: #E50914; display: flex; align-items: center;
+      justify-content: center; cursor: pointer; flex-shrink: 0;
     }
-
     .profile-pic img {
-      width: 100%;
-      height: 100%;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      object-position: right center;
-      display: block;
+      width: 100%; height: 100%; min-width: 100%; min-height: 100%;
+      object-fit: cover; object-position: center center; display: block;
     }
+    .profile-initials { font-size: 0.7rem; font-weight: 700; color: #fff; }
 
-    /* placeholder inicial quando não tem foto de perfil */
-    .profile-initials {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #fff;
-      user-select: none;
-    }
-
-    /* ══════════════════════════════════
-       HERO — foto grande do casal
-    ══════════════════════════════════ */
+    /* ── HERO ── */
     .hero {
-      position: relative;
-      width: 100%;
-      /* ~60% da viewport height — bem maior */
-      height: 62vh;
-      min-height: 320px;
-      max-height: 480px;
-      overflow: hidden;
-      flex-shrink: 0;
+      position: relative; width: 100%;
+      height: 62vh; min-height: 320px; max-height: 480px;
+      overflow: hidden; flex-shrink: 0;
     }
-
-    .hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
+    .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
     .hero-placeholder {
-      position: absolute;
-      inset: 0;
-      background: #1e1e1e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-      color: #444;
-      font-size: 0.8rem;
+      position: absolute; inset: 0; background: #1e1e1e;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px; color: #444; font-size: 0.8rem;
     }
-    .hero-placeholder .ph-icon { font-size: 2.5rem; }
-
-    /* gradiente: escurece bordas para os textos ficarem legíveis */
     .hero-gradient {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background:
         linear-gradient(to right,  rgba(0,0,0,0.55) 0%, transparent 65%),
         linear-gradient(to top,    rgba(20,20,20,1)  0%, transparent 45%),
         linear-gradient(to bottom, rgba(0,0,0,0.30)  0%, transparent 25%);
     }
-
-    /* textos e botões sobrepostos */
     .hero-content {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 0 16px 16px;
-      z-index: 2;
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 16px 16px; z-index: 2;
     }
-
-    .hero-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      line-height: 1.05;
-      text-shadow: 1px 2px 8px rgba(0,0,0,0.85);
-      margin-bottom: 6px;
-    }
-
-    .hero-desc {
-      font-size: 0.67rem;
-      color: #d4d4d4;
-      line-height: 1.5;
-      max-width: 230px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
-      margin-bottom: 12px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
+    .hero-title { font-size: 1.6rem; font-weight: 800; line-height: 1.05; text-shadow: 1px 2px 8px rgba(0,0,0,0.85); margin-bottom: 6px; }
+    .hero-desc  { font-size: 0.67rem; color: #d4d4d4; line-height: 1.5; max-width: 230px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); margin-bottom: 12px; }
+    .hero-buttons { display: flex; gap: 8px; }
     .btn-play {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 7px 18px;
-      border-radius: 3px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.2px;
-      transition: background 0.15s;
+      display: flex; align-items: center; gap: 6px;
+      background: #fff; color: #000; border: none; padding: 7px 18px;
+      border-radius: 3px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
     }
-    .btn-play:hover { background: rgba(255,255,255,0.85); }
-
     .btn-more {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(109,109,110,0.65);
-      color: #fff;
-      border: none;
-      padding: 7px 14px;
-      border-radius: 3px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .btn-more:hover { background: rgba(109,109,110,0.45); }
-
-    /* ══════════════════════════════════
-       LABEL "TOP 4"
-    ══════════════════════════════════ */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px 8px;
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(109,109,110,0.65); color: #fff; border: none;
+      padding: 7px 14px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
     }
 
-    .top-badge {
-      background: #E50914;
-      color: #fff;
-      font-size: 0.58rem;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      padding: 2px 6px;
-      border-radius: 2px;
-      text-transform: uppercase;
-    }
+    /* ── LABEL TOP ── */
+    .section-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px 8px; flex-shrink: 0; }
+    .top-badge { background: #E50914; color: #fff; font-size: 0.58rem; font-weight: 900; letter-spacing: 1.5px; padding: 2px 6px; border-radius: 2px; }
+    .section-title { font-size: 0.82rem; font-weight: 600; color: #e5e5e5; }
 
-    .section-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #e5e5e5;
-    }
-
-    /* ══════════════════════════════════
-       GRID 4 FOTOS — 2 × 2
-    ══════════════════════════════════ */
+    /* ── GRID ── */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3px;
-      padding: 0 3px 3px;
-      /* ocupa o restante do espaço disponível */
+      gap: 3px; padding: 0 3px 3px;
       flex: 1;
     }
 
+    /* card normal (ocupa 1 coluna) */
     .grid-item {
-      position: relative;
-      /* aspect-ratio livre — preenche o espaço */
-      overflow: hidden;
-      background: #242424;
-      cursor: pointer;
-      /* altura mínima para não achatar */
-      min-height: 110px;
+      position: relative; overflow: hidden;
+      background: #242424; cursor: pointer; min-height: 130px;
     }
 
-    .grid-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.25s;
+    /* card especial 5 — ocupa as 2 colunas, um pouco maior que os normais */
+    .grid-item.special {
+      grid-column: 1 / -1;
+      min-height: 160px;
+      max-height: 200px;
     }
+
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.25s; }
     .grid-item:hover img { transform: scale(1.05); }
 
-    /* placeholder quando não tem foto — REMOVIDO (fotos já configuradas) */
+    /* emoji câmera — canto superior direito do card especial */
+    .special-cam {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 1.1rem; pointer-events: none; line-height: 1;
+    }
 
-    /* número grande no canto — REMOVIDO */
+    /* barra inferior dos cards */
+    .card-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 6px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    }
+    .card-btn {
+      background: none; border: 1.5px solid rgba(255,255,255,0.7);
+      color: #fff; border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.75rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .card-btn.play { padding-left: 2px; }
 
-    /* ══════════════════════════════════
-       MODAL VÍDEO
-    ══════════════════════════════════ */
+    /* ── MODAL VÍDEO ── */
     .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88); z-index: 200;
+      align-items: center; justify-content: center; padding: 20px;
     }
     .overlay.on { display: flex; }
-
-    .video-wrap {
-      position: relative;
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .video-wrap video {
-      width: 100%;
-      border-radius: 6px;
-      display: block;
-      background: #000;
-    }
-
+    .video-wrap { position: relative; width: 100%; max-width: 420px; }
+    .video-wrap video { width: 100%; border-radius: 6px; display: block; background: #000; }
     .v-close {
-      position: absolute;
-      top: -38px; right: 0;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.6rem;
-      cursor: pointer;
-      line-height: 1;
+      position: absolute; top: -38px; right: 0;
+      background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer;
     }
 
-    .no-video {
-      background: #1f1f1f;
-      border-radius: 6px;
-      padding: 40px 20px;
-      text-align: center;
-      color: #555;
-      font-size: 0.85rem;
-      line-height: 1.6;
+    /* ── MODAL MAIS INFORMAÇÕES ── */
+    .info-modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88); z-index: 200;
+      align-items: flex-start; justify-content: center;
+      padding: 20px; overflow-y: auto;
     }
-    .no-video code {
-      background: #2a2a2a;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 0.75rem;
-      color: #e50914;
+    .info-modal.on { display: flex; }
+    .info-box {
+      background: #181818; border-radius: 8px;
+      width: 100%; max-width: 420px;
+      overflow: hidden; position: relative; margin: auto;
+    }
+    .info-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .info-close {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(24,24,24,0.9); border: none; color: #fff;
+      width: 32px; height: 32px; border-radius: 50%;
+      font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .info-body { padding: 20px; }
+    .info-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .info-meta  { display: flex; gap: 10px; font-size: 0.75rem; color: #aaa; margin-bottom: 14px; }
+    .info-desc  { font-size: 0.85rem; color: #d4d4d4; line-height: 1.7; margin-bottom: 20px; }
+    .info-play  {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #fff; color: #000; border: none;
+      width: 100%; padding: 10px; border-radius: 4px;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    }
+
+    /* ── SHEET 3 PONTINHOS ── */
+    .sheet-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; }
+    .sheet-overlay.on { display: block; }
+    .sheet {
+      position: fixed; bottom: -100%; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 430px;
+      background: #1e1e1e; border-radius: 12px 12px 0 0;
+      z-index: 301; padding: 0 0 36px;
+      transition: bottom 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    .sheet.on { bottom: 0; }
+    .sheet-handle { width: 36px; height: 4px; background: #555; border-radius: 2px; margin: 12px auto 16px; }
+    .sheet-title  { font-size: 1rem; font-weight: 700; padding: 0 20px 14px; border-bottom: 1px solid #333; color: #e5e5e5; }
+    .sheet-message { padding: 28px 24px; font-size: 0.95rem; color: #e5e5e5; line-height: 1.8; text-align: center; }
+    .sheet-heart   { font-size: 2rem; display: block; margin-bottom: 12px; }
+
+    /* ── LIGHTBOX (perfil + card especial) ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.96); z-index: 400;
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.on { display: flex; }
+    .lightbox-img {
+      max-width: 92vw; max-height: 60vh;
+      border-radius: 10px; object-fit: contain;
+      margin-bottom: 28px;
+    }
+    .lightbox-msg {
+      max-width: 360px; text-align: center;
+      font-size: 0.95rem; color: #e5e5e5;
+      line-height: 1.8;
+    }
+    .lightbox-author {
+      margin-top: 16px; font-size: 1rem;
+      color: #E50914; font-weight: 700;
+    }
+    .lightbox-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; color: #fff;
+      font-size: 2rem; cursor: pointer; line-height: 1;
     }
   </style>
 </head>
@@ -343,53 +234,16 @@
 
 <!-- ══ NAV ══ -->
 <nav>
-  <!--
-    ══════════════════════════════════════════════════════
-    LOGO (canto superior esquerdo):
-    Atualmente é a letra "N" vermelha em itálico.
-
-    OPÇÃO A — manter texto mas trocar a letra/palavra:
-      Edite o texto abaixo, ex: coloque as iniciais de vocês "L&M"
-
-    OPÇÃO B — usar uma imagem/logo no lugar:
-      Substitua o <span> inteiro por:
-      <img src="URL-DA-SUA-IMAGEM" style="height:28px; display:block;" alt="logo"/>
-
-    OPÇÃO C — deixar o N mesmo (estilo Netflix) ← atual
-    ══════════════════════════════════════════════════════
-  -->
-  <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/logo%20netflix.webp" style="height:28px; display:block;" alt="logo"/>
-
+  <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/logo%20netflix.webp"
+       style="height:28px; display:block;" alt="logo"/>
   <div class="nav-links">
-    <span>Séries</span>
-    <span>Filmes</span>
-    <span>Documentários</span>
+    <span>Séries</span><span>Filmes</span><span>Documentários</span>
   </div>
-
   <div class="nav-right">
-    <!-- Ícone lupa — branco -->
-    <svg class="nav-icon" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="7"/>
-      <line x1="16.5" y1="16.5" x2="22" y2="22"/>
-    </svg>
-
-    <!-- Ícone sino — branco -->
-    <svg class="nav-icon" viewBox="0 0 24 24">
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-    </svg>
-
-    <!-- Foto de perfil — bolinha quadrada -->
-    <!--
-      ════════════════════════════════════════════════════
-      FOTO DE PERFIL: coloque a URL da foto dentro do src
-      Ex: src="https://xxxx.supabase.co/.../perfil.jpg"
-      Se deixar vazio, aparece as iniciais "EU"
-      ════════════════════════════════════════════════════
-    -->
-    <div class="profile-pic" id="profilePic">
+    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <div class="profile-pic" onclick="openLightbox('perfil')">
       <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-perfil.png"
-           id="profileImg"
            alt="perfil"
            onerror="this.style.display='none'; document.getElementById('profileFallback').style.display='flex'"/>
       <span class="profile-initials" id="profileFallback" style="display:none;">EU</span>
@@ -399,44 +253,17 @@
 
 <!-- ══ HERO ══ -->
 <div class="hero">
-  <!--
-    ════════════════════════════════════════════════════
-    FOTO PRINCIPAL DO CASAL:
-    Substitua o src="" pela URL da foto do Supabase
-    Ex: src="https://xxxx.supabase.co/.../casal.jpg"
-    ════════════════════════════════════════════════════
-  -->
   <img class="hero-img" id="heroImg"
        src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%201.png"
-       alt="Foto do casal"
-       onerror="this.style.display='none'"/>
-
-  <div class="hero-placeholder" id="heroPh">
-    <span class="ph-icon">📷</span>
-    <span>Coloque a URL da sua foto aqui</span>
-    <span style="font-size:0.65rem; color:#333;">(heroImg src="")</span>
-  </div>
-
+       alt="Foto principal" onerror="this.style.display='none'"/>
+  <div class="hero-placeholder" id="heroPh"><span>📷</span><span>Foto principal</span></div>
   <div class="hero-gradient"></div>
-
   <div class="hero-content">
-    <!--
-      ════════════════════
-      EDITE: nome dos dois
-      ════════════════════
-    -->
     <div class="hero-title">Leandro &amp; Marina</div>
-    <!--
-      ══════════════════
-      EDITE: descrição
-      ══════════════════
-    -->
-    <div class="hero-desc">
-      Duas pessoas, um mesmo escritório e uma história que ningúem esperava. Entre risadas, desafios e descobertas, Leandro e Marina decidem viver sua própia aventura de amor.
-    </div>
+    <div class="hero-desc">Duas pessoas, um mesmo escritório e uma história que ninguém esperava. Entre risadas, desafios e descobertas, Leandro e Marina decidem viver sua própria aventura de amor.</div>
     <div class="hero-buttons">
       <button class="btn-play" onclick="openVideo(0)">▶ Assistir</button>
-      <button class="btn-more">ℹ Mais informações</button>
+      <button class="btn-more" onclick="openInfo(0)">ℹ Mais informações</button>
     </div>
   </div>
 </div>
@@ -444,33 +271,57 @@
 <!-- ══ LABEL ══ -->
 <div class="section-header">
   <span class="top-badge">TOP</span>
-  <span class="section-title">Brasil: Top 4 de hoje</span>
+  <span class="section-title">Brasil: Top 5 de hoje</span>
 </div>
 
-<!-- ══ GRID 4 FOTOS ══ -->
+<!-- ══ GRID ══ -->
 <div class="grid">
 
-  <!--
-    ════════════════════════════════════════════════════
-    FOTOS DA GRADE: substitua cada src="" pela URL
-    do Supabase. Clicando em cada foto abre o vídeo.
-    ════════════════════════════════════════════════════
-  -->
-
+  <!-- Card 1 -->
   <div class="grid-item" onclick="openVideo(1)">
     <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%202.png" alt="foto 1"/>
+    <div class="card-bar">
+      <button class="card-btn play" onclick="openVideo(1)">▶</button>
+      <button class="card-btn" onclick="event.stopPropagation(); openInfo(1)">ℹ</button>
+    </div>
   </div>
 
+  <!-- Card 2 -->
   <div class="grid-item" onclick="openVideo(2)">
     <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%203.png" alt="foto 2"/>
+    <div class="card-bar">
+      <button class="card-btn play" onclick="openVideo(2)">▶</button>
+      <button class="card-btn" onclick="event.stopPropagation(); openInfo(2)">ℹ</button>
+    </div>
   </div>
 
+  <!-- Card 3 -->
   <div class="grid-item" onclick="openVideo(3)">
     <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%204.png" alt="foto 3"/>
+    <div class="card-bar">
+      <button class="card-btn play" onclick="openVideo(3)">▶</button>
+      <button class="card-btn" onclick="event.stopPropagation(); openInfo(3)">ℹ</button>
+    </div>
   </div>
 
+  <!-- Card 4 -->
   <div class="grid-item" onclick="openVideo(4)">
     <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%205.png" alt="foto 4"/>
+    <div class="card-bar">
+      <button class="card-btn play" onclick="openVideo(4)">▶</button>
+      <button class="card-btn" onclick="event.stopPropagation(); openInfo(4)">ℹ</button>
+    </div>
+  </div>
+
+  <!-- Card 5 — especial: blur + mensagem, clique revela no lightbox -->
+  <div class="grid-item special" onclick="openLightbox('especial')">
+    <img src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-final.jpeg"
+         alt="foto especial" style="filter: blur(10px); transform: scale(1.0);"/>
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.25);pointer-events:none;"></div>
+    <span class="special-cam">📷</span>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+      <span style="font-size:0.72rem;color:rgba(255,255,255,0.7);letter-spacing:0.5px;">toque para ver ❤️</span>
+    </div>
   </div>
 
 </div><!-- /grid -->
@@ -480,69 +331,177 @@
   <div class="video-wrap">
     <button class="v-close" onclick="closeVideo()">✕</button>
     <video id="vid" controls playsinline></video>
-    <div class="no-video" id="noVid" style="display:none;">
-      🎬 Vídeo ainda não configurado.<br/>
-      Coloque a URL no array <code>videos[]</code> no código.
+  </div>
+</div>
+
+<!-- ══ MODAL MAIS INFORMAÇÕES ══ -->
+<div class="info-modal" id="infoModal" onclick="closeInfo(event)">
+  <div class="info-box">
+    <img class="info-img" id="infoImg" src="" alt=""/>
+    <button class="info-close" onclick="closeInfo()">✕</button>
+    <div class="info-body">
+      <div class="info-title" id="infoTitle"></div>
+      <div class="info-meta"  id="infoMeta"></div>
+      <div class="info-desc"  id="infoDesc"></div>
+      <button class="info-play" id="infoPlayBtn">▶ Assistir</button>
     </div>
   </div>
 </div>
 
+<!-- ══ SHEET 3 PONTINHOS ══ -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="sheetTitle"></div>
+  <div class="sheet-message">
+    <span class="sheet-heart">❤️</span>
+    Te amo muito, obrigado por ser essa pessoa incrível.
+  </div>
+</div>
+
+<!-- ══ LIGHTBOX (perfil + card especial) ══ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+  <div class="lightbox-msg" id="lightboxMsg" style="display:none;">
+    Caminhadas, trânsito, vídeos bobos, discussões sérias — não importa o que seja. Tudo fica mágico com você. Você é minha alegria, minha companheira, minha parceirinha pra tudo.
+    <br/><br/>
+    Te amo muito. Feliz Dia dos Namorados.
+    <div class="lightbox-author">— Leandro ❤️</div>
+  </div>
+</div>
+
 <script>
-/*
-  ════════════════════════════════════════════════════
-  URLS DOS VÍDEOS — edite aqui!
-
-  Cada posição corresponde a:
-    videos[0] → botão "Assistir" do hero (foto principal)
-    videos[1] → clique na Foto 1
-    videos[2] → clique na Foto 2
-    videos[3] → clique na Foto 3
-    videos[4] → clique na Foto 4
-
-  Cole a URL pública do Supabase entre as aspas.
-  Exemplo:
-    "https://abcd1234.supabase.co/storage/v1/object/public/midia/video1.mp4"
-  ════════════════════════════════════════════════════
-*/
-const videos = [
-  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%201.mp4",   // 0 — hero (botão Assistir)
-  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%202.mp4",   // 1 — Foto 1
-  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%203.mp4",   // 2 — Foto 2
-  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%204.mp4",   // 3 — Foto 3
-  "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%205.mp4",   // 4 — Foto 4
+/* ══ DADOS DOS CARDS ══ */
+const cards = [
+  // 0 — HERO
+  {
+    title:   "Leandro & Marina",
+    desc:    "Duas pessoas, um mesmo escritório e uma história que ninguém esperava. Entre risadas, desafios e descobertas, Leandro e Marina decidem viver sua própria aventura de amor.",
+    year:    "2024", duracao: "1 Temporada",
+    foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%201.png",
+    video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%201.mp4",
+  },
+  // 1 — Card 1
+  {
+    title:   "As Caminhadas",
+    desc:    "Cada caminhada, cada conversa, cada risada — sem perceber, fui aprendendo tudo sobre você. E quanto mais eu aprendo, mais eu quero continuar do seu lado.",
+    year:    "2024", duracao: "40 seg",
+    foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%202.png",
+    video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%202.mp4",
+  },
+  // 2 — Card 2
+  {
+    title:   "O Trânsito",
+    desc:    "Quanto tempo já perdemos presos no trânsito juntos? Nenhum. Porque tempo nenhum é perdido quando é ao seu lado.",
+    year:    "2024", duracao: "40 seg",
+    foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%203.png",
+    video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%203.mp4",
+  },
+  // 3 — Card 3
+  {
+    title:   "Os Efeitos do TikTok",
+    desc:    "Uma tarde jogando com efeitos do TikTok — uma coisa completamente boba que eu jamais vou esquecer. Porque qualquer momento simples vira memória especial quando é com você.",
+    year:    "2024", duracao: "40 seg",
+    foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%204.png",
+    video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%204.mp4",
+  },
+  // 4 — Card 4
+  {
+    title:   "O Efeito Besta",
+    desc:    "Até um efeito besta se torna uma das coisas mais engraçadas do mundo, pois você me faz muito feliz.",
+    year:    "2024", duracao: "40 seg",
+    foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%205.png",
+    video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%205.mp4",
+  },
 ];
 
+/* foto do card especial — coloque a URL aqui */
+const fotoEspecial = "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-final.jpeg"; // ← URL da foto especial do Supabase
+
+/* ══ VÍDEO ══ */
 function openVideo(i) {
-  const url = videos[i];
-  const vid  = document.getElementById('vid');
-  const noVid = document.getElementById('noVid');
-  if (url) {
-    vid.src = url;
-    vid.style.display = 'block';
-    noVid.style.display = 'none';
-    vid.play().catch(() => {});
-  } else {
-    vid.style.display = 'none';
-    noVid.style.display = 'block';
-  }
+  document.getElementById('vid').src = cards[i].video;
   document.getElementById('overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
+  document.getElementById('vid').play().catch(() => {});
 }
-
 function closeVideo(e) {
   if (e && e.target !== document.getElementById('overlay')) return;
-  const vid = document.getElementById('vid');
-  vid.pause(); vid.src = '';
+  const v = document.getElementById('vid');
+  v.pause(); v.src = '';
   document.getElementById('overlay').classList.remove('on');
   document.body.style.overflow = '';
 }
 
+/* ══ MAIS INFORMAÇÕES ══ */
+function openInfo(i) {
+  const c = cards[i];
+  document.getElementById('infoImg').src           = c.foto;
+  document.getElementById('infoTitle').textContent = c.title;
+  document.getElementById('infoMeta').textContent  = c.year + ' · ' + c.duracao;
+  document.getElementById('infoDesc').textContent  = c.desc;
+  document.getElementById('infoPlayBtn').onclick   = () => { closeInfo(); openVideo(i); };
+  document.getElementById('infoModal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeInfo(e) {
+  if (e && e.target !== document.getElementById('infoModal')) return;
+  document.getElementById('infoModal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+/* ══ SHEET ══ */
+function openSheet(i) {
+  document.getElementById('sheetTitle').textContent = cards[i].title;
+  document.getElementById('sheetOverlay').classList.add('on');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('sheet').classList.add('on');
+  }));
+  document.body.style.overflow = 'hidden';
+}
+function closeSheet() {
+  document.getElementById('sheet').classList.remove('on');
+  setTimeout(() => {
+    document.getElementById('sheetOverlay').classList.remove('on');
+    document.body.style.overflow = '';
+  }, 350);
+}
+
+/* ══ LIGHTBOX ══
+   tipo: 'perfil' → só foto ampliada
+         'especial' → foto + mensagem de amor
+*/
+function openLightbox(tipo) {
+  const lb    = document.getElementById('lightbox');
+  const img   = document.getElementById('lightboxImg');
+  const msg   = document.getElementById('lightboxMsg');
+
+  if (tipo === 'perfil') {
+    img.src = "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-perfil.png";
+    msg.style.display = 'none';
+  } else {
+    img.src = fotoEspecial || '';
+    img.style.display = fotoEspecial ? 'block' : 'none';
+    msg.style.display = 'block';
+  }
+
+  lb.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox')) return;
+  document.getElementById('lightbox').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+/* ══ ESC fecha tudo ══ */
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeVideo();
+  if (e.key === 'Escape') { closeVideo(); closeInfo(); closeSheet(); closeLightbox(); }
 });
 
-// Esconde placeholder hero quando a imagem carrega
-document.getElementById('heroImg').onload = function() {
+/* esconde placeholder hero quando foto carrega */
+document.getElementById('heroImg').onload = () => {
   document.getElementById('heroPh').style.display = 'none';
 };
 </script>
