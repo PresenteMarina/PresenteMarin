@@ -402,6 +402,7 @@ const cards = [
     year:    "2024", duracao: "40 seg",
     foto:    "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto%205.png",
     video:   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/video%205.mp4",
+    imgPos:  "center bottom",
   },
 ];
 
@@ -426,7 +427,9 @@ function closeVideo(e) {
 /* ══ MAIS INFORMAÇÕES ══ */
 function openInfo(i) {
   const c = cards[i];
-  document.getElementById('infoImg').src           = c.foto;
+  const img = document.getElementById('infoImg');
+  img.src = c.foto;
+  img.style.objectPosition = c.imgPos || 'center top';
   document.getElementById('infoTitle').textContent = c.title;
   document.getElementById('infoMeta').textContent  = c.year + ' · ' + c.duracao;
   document.getElementById('infoDesc').textContent  = c.desc;
