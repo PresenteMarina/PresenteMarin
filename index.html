@@ -360,6 +360,13 @@
   </div>
 </div>
 
+<!-- ══ MÚSICA DE FUNDO ══
+  1. Baixe a música em MP3 (use cobalt.tools)
+  2. Suba no Supabase (bucket midia)
+  3. Cole a URL no src abaixo
+-->
+<audio id="bgMusic" loop preload="auto" src="https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/musica.mp3"></audio>
+
 <script>
 /* ══ DADOS DOS CARDS ══ */
 const cards = [
@@ -413,19 +420,51 @@ const cards = [
 /* foto do card especial — coloque a URL aqui */
 const fotoEspecial = "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/foto-final.jpeg"; // ← URL da foto especial do Supabase
 
+/* ══ MÚSICA DE FUNDO ══ */
+const bgMusic = document.getElementById('bgMusic');
+bgMusic.volume = 0.15; // ← 0.0 (mudo) até 1.0 (máximo)
+
+let musicStarted = false;
+function tryStartMusic() {
+  if (!musicStarted && bgMusic.src) {
+    bgMusic.play().then(() => { musicStarted = true; }).catch(() => {});
+  }
+}
+document.addEventListener('click',      tryStartMusic, { once: false });
+document.addEventListener('touchstart', tryStartMusic, { once: false });
+
 /* ══ VÍDEO ══ */
 function openVideo(i) {
-  document.getElementById('vid').src = cards[i].video;
+  const vid = document.getElementById('vid');
+  vid.src = cards[i].video;
+  vid.muted = true; /* ← sempre começa mutado */
+
+  /* já começa mutado → música continua tocando */
+  if (musicStarted) bgMusic.play().catch(() => {});
+
   document.getElementById('overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
-  document.getElementById('vid').play().catch(() => {});
+  vid.play().catch(() => {});
+
+  /* desmutou → pausa música / mutou → retoma música */
+  vid.onvolumechange = () => {
+    if (vid.muted) {
+      if (musicStarted) bgMusic.play().catch(() => {});
+    } else {
+      bgMusic.pause();
+    }
+  };
 }
 function closeVideo(e) {
   if (e && e.target !== document.getElementById('overlay')) return;
   const v = document.getElementById('vid');
   v.pause(); v.src = '';
+  v.muted = true; /* reseta para mutado para a próxima abertura */
+  v.onvolumechange = null;
   document.getElementById('overlay').classList.remove('on');
   document.body.style.overflow = '';
+  /* retoma música ao fechar */
+  if (musicStarted) bgMusic.play().catch(() => {});
 }
 
 /* ══ MAIS INFORMAÇÕES ══ */
