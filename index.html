@@ -580,37 +580,29 @@ function tryStartMusic() {
 document.addEventListener('click',      tryStartMusic, { once: false });
 document.addEventListener('touchstart', tryStartMusic, { once: false });
 
+
 /* ══ VÍDEO ══ */
 function openVideo(i) {
   const vid = document.getElementById('vid');
   vid.src = cards[i].video;
   vid.muted = true; /* ← sempre começa mutado */
-
-  /* já começa mutado → música continua tocando */
-  if (musicStarted) bgMusic.play().catch(() => {});
+  vid.onvolumechange = null; /* música nunca pausa, não importa o estado do vídeo */
 
   document.getElementById('overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
   vid.play().catch(() => {});
 
-  /* desmutou → pausa música / mutou → retoma música */
-  vid.onvolumechange = () => {
-    if (vid.muted) {
-      if (musicStarted) bgMusic.play().catch(() => {});
-    } else {
-      bgMusic.pause();
-    }
-  };
+  /* garante que a música continue tocando */
+  if (musicStarted) bgMusic.play().catch(() => {});
 }
 function closeVideo(e) {
   if (e && e.target !== document.getElementById('overlay')) return;
   const v = document.getElementById('vid');
   v.pause(); v.src = '';
-  v.muted = true; /* reseta para mutado para a próxima abertura */
+  v.muted = true;
   v.onvolumechange = null;
   document.getElementById('overlay').classList.remove('on');
   document.body.style.overflow = '';
-  /* retoma música ao fechar */
   if (musicStarted) bgMusic.play().catch(() => {});
 }
 
@@ -751,6 +743,10 @@ function playNotificationVideo(){
   "https://bjjgboiumpmbqgmdyeal.supabase.co/storage/v1/object/public/midia/notificacao%20video.mp4";
 
   vid.muted = true;
+  vid.onvolumechange = null; /* música nunca pausa */
+
+  /* garante que a música continue tocando */
+  if (musicStarted) bgMusic.play().catch(() => {});
 
   document
     .getElementById(
